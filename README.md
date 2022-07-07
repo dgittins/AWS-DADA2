@@ -1,6 +1,6 @@
 # AWS DADA2  
 
-Instructions for running DADA2 on an AWS EC2 instance  
+Workflow for running [DADA2](https://benjjneb.github.io/dada2/index.html) on an AWS EC2 instance (includes downloading and pre-processing sequences from the [Sequence read Archive](https://www.ncbi.nlm.nih.gov/sra))  
 
 Prerequisites:
 
@@ -16,11 +16,14 @@ A couple of options here:<br/><br/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1.a  Create EC2 instance with an Amazon Linux AMI and configure RStudio**  
 
+Free tier eligible AMI:  
+Ubuntu Amazon Machine Image (AMI) Ubuntu Server 18.04 LTS (HVM), SSD Volume Type - ami-0c159d337b331627c (64-bit (x86)) 
+
 ```
 $ aws ec2 run-instances --image-id ami-0c159d337b331627c --count 1 --instance-type t2.micro --key-name <key pair name> --security-group-ids <security group ID> --subnet-id <subnet ID> --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=DADA2}]'
 ``` 
 
-Follow AWS RStudio configuration workflow: https://github.com/dgittins/AWS-RStudio<br/><br/>
+Then follow AWS RStudio configuration workflow: https://github.com/dgittins/AWS-RStudio<br/><br/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1.b Create an EC2 instance with an RStudio AMI**  
 
@@ -34,10 +37,12 @@ $ aws ec2 run-instances --image-id ami-0315888c660b24d7c --count 1 --instance-ty
 Parameters:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--image-id:** 'AMI catalog' in the EC2 portal       
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--instance-type:** Choose an instance with suitable compute, memory and networking resources: https://aws.amazon.com/ec2/instance-types/  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--key-name:** 'Key Pairs' in the EC2 portal  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--security-group-ids:** 'Security Groups' in the EC2 portal   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--subnet-id:** 'Subnets' in VPC portal  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--tag-specifications:** provide an instance name, e.g., 'DADA2'<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--tag-specifications:** provide an instance name, e.g., 'DADA2'  
+<br/><br/>
 
 
 #### Check the instance is running 
@@ -56,3 +61,60 @@ $ ssh -i </path/to/my-key-pair.pem> ubuntu@<my-instance-public-dns-name>
 ```  
 
 Default usernames for different AMIs are listed here: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connection-prereqs.html  
+
+## 2. Install DADA2  
+
+More information: https://benjjneb.github.io/dada2/dada-installation.html  
+
+```
+$ R
+$ library("devtools")
+$ devtools::install_github("benjjneb/dada2", ref="v1.20")
+```
+
+Verify installation:
+
+```
+$ packageVersion("dada2")
+```
+
+## 3. Install seqinr
+
+'''
+$ R
+$ install.packages("seqinr")
+'''
+
+## 4. Download DADA2 formatted silva database (https://zenodo.org/record/4587955#.YsNm9nbMJhE)
+$ wget https://zenodo.org/record/4587955/files/silva_nr99_v138.1_train_set.fa.gz?download=1
+
+#Install SRA Toolkit (https://github.com/ncbi/sra-tools/wiki/02.-Installing-SRA-Toolkit)
+
+-Fetch the SRA Toolkit TarBall for Ubuntu
+$ wget --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
+
+-Extract the tar file
+$ tar -vxzf sratoolkit.tar.gz
+$ rm sratoolkit.tar.gz
+
+-Append the path to the binaries to your PATH environment variable
+$ export PATH=$PATH:/home/ubuntu/sratoolkit.3.0.0-ubuntu64/bin
+
+Check it worked (run either or both)
+$ echo $PATH
+$ which fastq-dump
+
+#Configure SRA ToolKit (https://github.com/ncbi/sra-tools/wiki/03.-Quick-Toolkit-Configuration)
+$ mkdir sradownloads (/home/ubuntu/sradownloads - this will be used as the download path *could also use S3 bucket)
+$ vdb-config --interactive
+
+CACHE - location of user repository: /home/ubuntu/sradownloads
+AWS - select 'accept charges for AWS' and 'report cloud instance identity'
+Save changes and Exit
+
+-Verify that the toolkit is functional
+$ fastq-dump --stdout SRR390728 | head -n 8 
+
+#Install cutadapt
+$ sudo apt install cutadapt
+$ cutadapt --version
