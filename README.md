@@ -221,5 +221,5 @@ Open a web browser and enter Public DNS(IPv4) followed by the RStudio port (8787
 
 Follow the DADA2 Pipeline Tutorial (1.8): https://benjjneb.github.io/dada2/tutorial_1_8.html  
 
-NB: the path variable will be /home/rstudio
+NB: path = /home/rstudio
 
