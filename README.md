@@ -14,7 +14,7 @@ Prerequisites:
 
 A couple of options here:<br/><br/>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.a  Create EC2 instance with an Amazon Linux AMI and configure RStudio  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1.a  Create EC2 instance with an Amazon Linux AMI and configure RStudio**  
 
 ```
 $ aws ec2 run-instances --image-id ami-0c159d337b331627c --count 1 --instance-type t2.micro --key-name <key pair name> --security-group-ids <security group ID> --subnet-id <subnet ID> --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=DADA2}]'
@@ -22,7 +22,7 @@ $ aws ec2 run-instances --image-id ami-0c159d337b331627c --count 1 --instance-ty
 
 Follow AWS RStudio configuration workflow: https://github.com/dgittins/AWS-RStudio<br/><br/>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.b Create an EC2 instance with an RStudio AMI  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1.b Create an EC2 instance with an RStudio AMI**  
 
 Louis Aslett’s (awesome!) website provides RStudio AMIs for different regions: http://www.louisaslett.com/RStudio_AMI/  
 
@@ -37,7 +37,8 @@ Parameters:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--key-name:** 'Key Pairs' in the EC2 portal  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--security-group-ids:** 'Security Groups' in the EC2 portal   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--subnet-id:** 'Subnets' in VPC portal  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--tag-specifications:** provide an instance name, e.g., 'DADA2'
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--tag-specifications:** provide an instance name, e.g., 'DADA2'<br/><br/>
+
 
 #### Check the instance is running 
 
