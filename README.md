@@ -210,3 +210,16 @@ done
 $ sudo chmod 777 /home/rstudio/
 $ mv *.fastq.gz /home/rstudio
 ```
+
+## 11. Access RStudio Server  
+
+Open a web browser and enter Public DNS(IPv4) followed by the RStudio port (8787) as the URL:
+
+&lt;Public DNS(IPv4)&gt;:8787  
+
+## 12. Run the DADA2 workflow  
+
+Follow the DADA2 Pipeline Tutorial (1.8): https://benjjneb.github.io/dada2/tutorial_1_8.html  
+
+NB: the path variable will be /home/rstudio
+
