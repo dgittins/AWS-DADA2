@@ -76,7 +76,7 @@ $ aws ec2 describe-instances --filters "Name=tag:Name,Values=DADA2"
 
 ```
 $ ssh -i </path/to/my-key-pair.pem> ubuntu@<my-instance-public-dns-name>
-```  
+```
 
 Default usernames for different AMIs are listed here: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connection-prereqs.html<br/><br/>  
 
@@ -107,7 +107,9 @@ $ install.packages("seqinr")
 
 Sequence classification requires a reference training dataset: https://benjjneb.github.io/dada2/training.html  
 
+```
 $ wget https://zenodo.org/record/4587955/files/silva_nr99_v138.1_train_set.fa.gz?download=1
+```
 
 ## 6. Install SRA Toolkit  
 
@@ -190,7 +192,7 @@ Individually
 
 ```
 cutadapt -g ^CCTACGGGAGGCAGCAG -G ^GACTACHVGGGTATCTAATCC --discard-untrimmed -o SRR11027625_1.noprim.fastq.gz -p SRR11027625_2.noprim.fastq.gz SRR11027625_1.fastq.gz SRR11027625_2.fastq.gz
-```  
+```
 
 Batch
 
