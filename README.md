@@ -78,7 +78,7 @@ $ aws ec2 describe-instances --filters "Name=tag:Name,Values=DADA2"
 $ ssh -i </path/to/my-key-pair.pem> ubuntu@<my-instance-public-dns-name>
 ```  
 
-Default usernames for different AMIs are listed here: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connection-prereqs.html  
+Default usernames for different AMIs are listed here: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connection-prereqs.html<br/><br/>  
 
 ## 3. Install DADA2  
 
@@ -90,7 +90,7 @@ $ library("devtools")
 $ devtools::install_github("benjjneb/dada2", ref="v1.20")
 ```
 
-Verify installation:
+#### Verify installation:
 
 ```
 $ packageVersion("dada2")
@@ -113,43 +113,74 @@ $ wget https://zenodo.org/record/4587955/files/silva_nr99_v138.1_train_set.fa.gz
 
 Instructions provided here: https://github.com/ncbi/sra-tools/wiki/02.-Installing-SRA-Toolkit  
 
-Download the SRA Toolkit TarBall for Ubuntu:
+#### Download the SRA Toolkit for Ubuntu:
 
 ```
 $ wget --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
-```
-
-Extract the tar file:
-
-```
 $ tar -vxzf sratoolkit.tar.gz
 $ rm sratoolkit.tar.gz
 ```
 
-Append the path to the binaries to PATH environment variable
+#### Append the path to the binaries to PATH environment variable
 
 ```
 $ export PATH=$PATH:/home/ubuntu/sratoolkit.3.0.0-ubuntu64/bin
 ```
 
-Validate
+#### Validate installation
 
 ```
 $ echo $PATH
 $ which fastq-dump
 ```
 
-## 7. Configure SRA ToolKit (https://github.com/ncbi/sra-tools/wiki/03.-Quick-Toolkit-Configuration)
+## 7. Configure SRA ToolKit  
+
+Instructions provided here: https://github.com/ncbi/sra-tools/wiki/03.-Quick-Toolkit-Configuration  
+
+```
 $ mkdir sradownloads (/home/ubuntu/sradownloads - this will be used as the download path *could also use S3 bucket)
 $ vdb-config --interactive
+```
 
-CACHE - location of user repository: /home/ubuntu/sradownloads
-AWS - select 'accept charges for AWS' and 'report cloud instance identity'
-Save changes and Exit
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**CACHE** - location of user repository: /home/ubuntu/sradownloads
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**AWS** - select 'accept charges for AWS' and 'report cloud instance identity'  
 
--Verify that the toolkit is functional
+#### Verify that the toolkit is functional  
+
+```
 $ fastq-dump --stdout SRR390728 | head -n 8 
+```  
 
-#Install cutadapt
+## 8. Install cutadapt  
+
+[Cutadapt](https://cutadapt.readthedocs.io/en/stable/) removes adapter sequences and primers from high-throughput sequencing reads.  
+
+```
 $ sudo apt install cutadapt
 $ cutadapt --version
+```
+
+## Option - Create an AMI from the EC2 Instance  
+
+To save the installed programs and seetings, an AMI can be created using the [EC2 portal](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/tkv-create-ami-from-instance.html) or the [AWS CLI](https://awscli.amazonaws.com/v2/documentation/api/2.0.34/reference/ec2/create-image.html)
+
+Example AMI:  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Name:** DADA2-Ubuntu-Server-18.04-LTS-(HVM)-SSD-Volume  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Description:** DADA2 Ubuntu Server 18.04 LTS (HVM), SSD Volume
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Delete on termination:** Disable (EBS volume will not be deleted on termination of the EC2 instance)  
+
+*Record AMI ID for future use  
+
+## 9. Download SRA files  
+
+```
+$ prefetch SRR11027625 SRR11027623 SRR11027622	
+$ fasterq-dump SRR11027625 SRR11027623 SRR11027622
+$ gzip *.fastq	
+$ chmod 755 *
+```
+
+## 10. Remove primers using cutadapt
