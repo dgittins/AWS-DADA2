@@ -215,7 +215,7 @@ $ mv *.fastq.gz /home/rstudio
 
 Open a web browser and enter Public DNS(IPv4) followed by the RStudio port (8787) as the URL:
 
-&lt;Public DNS(IPv4)&gt;:8787  
+&lt;Public DNS(IPv4)&gt;:8787<br/><br/>  
 
 ## 12. Run the DADA2 workflow  
 
