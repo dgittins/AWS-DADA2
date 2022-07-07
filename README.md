@@ -60,7 +60,7 @@ Parameters:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--security-group-ids:** 'Security Groups' in the EC2 portal   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--subnet-id:** 'Subnets' in VPC portal  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--tag-specifications:** provide an instance name, e.g., 'DADA2'  
-<br/><br/>
+<br/>
 
 
 #### Check the instance is running 
@@ -98,10 +98,10 @@ $ packageVersion("dada2")
 
 ## 4. Install seqinr
 
-'''
+```
 $ R
 $ install.packages("seqinr")
-'''
+```
 
 ## 5. Download DADA2-formatted reference database
 
