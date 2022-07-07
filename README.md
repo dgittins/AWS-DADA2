@@ -143,7 +143,7 @@ $ mkdir sradownloads (/home/ubuntu/sradownloads - this will be used as the downl
 $ vdb-config --interactive
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**CACHE** - location of user repository: /home/ubuntu/sradownloads
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**CACHE** - location of user repository: /home/ubuntu/sradownloads  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**AWS** - select 'accept charges for AWS' and 'report cloud instance identity'  
 
 #### Verify that the toolkit is functional  
@@ -163,7 +163,7 @@ $ cutadapt --version
 
 ## Option - Create an AMI from the EC2 Instance  
 
-To save the installed programs and seetings, an AMI can be created using the [EC2 portal](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/tkv-create-ami-from-instance.html) or the [AWS CLI](https://awscli.amazonaws.com/v2/documentation/api/2.0.34/reference/ec2/create-image.html)
+To save the installed programs and settings, an AMI can be created using the [EC2 portal](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/tkv-create-ami-from-instance.html) or the [AWS CLI](https://awscli.amazonaws.com/v2/documentation/api/2.0.34/reference/ec2/create-image.html)
 
 Example AMI:  
 
@@ -172,7 +172,8 @@ Example AMI:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Delete on termination:** Disable (EBS volume will not be deleted on termination of the EC2 instance)  
 
-*Record AMI ID for future use  
+*Record AMI ID for future use<br/><br/>
+
 
 ## 9. Download SRA files  
 
@@ -183,4 +184,27 @@ $ gzip *.fastq
 $ chmod 755 *
 ```
 
-## 10. Remove primers using cutadapt
+## 10. Remove primers using cutadapt  
+
+Individually  
+
+```
+cutadapt -g ^CCTACGGGAGGCAGCAG -G ^GACTACHVGGGTATCTAATCC --discard-untrimmed -o SRR11027625_1.noprim.fastq.gz -p SRR11027625_2.noprim.fastq.gz SRR11027625_1.fastq.gz SRR11027625_2.fastq.gz
+```  
+
+Batch
+
+```
+for f in ./*_1.fastq.gz
+do
+newname=$(basename $f _1.fastq.gz)
+cutadapt -g ^CCTACGGGAGGCAGCAG -G ^GACTACHVGGGTATCTAATCC --discard-untrimmed -o ${newname}_1.noprim.fastq.gz -p ${newname}_2.noprim.fastq.gz ${newname}_1.fastq.gz ${newname}_2.fastq.gz
+done
+```
+
+#### Move files to rstudio directory for processing in RStudio Server  
+
+```
+$ sudo chmod 777 /home/rstudio/
+$ mv *.fastq.gz /home/rstudio
+```
