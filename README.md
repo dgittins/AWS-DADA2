@@ -221,5 +221,23 @@ Open a web browser and enter Public DNS(IPv4) followed by the RStudio port (8787
 
 Follow the DADA2 Pipeline Tutorial (1.8): https://benjjneb.github.io/dada2/tutorial_1_8.html  
 
-NB: path = /home/rstudio
+NB: path = /home/rstudio<br/><br/>  
+
+## 13. Transfer sequence and DADA2 ouput files from EC2 to S3  
+
+#### List S3 buckets
+```
+$ aws s3 ls
+```
+
+#### Copy sequence files from EC2 to S3
+
+```
+$ aws s3 sync /home/rstudio/ s3://<aws-S3-bucket>/<subfolder>/
+```
+
+#### Verify files were copied
+```
+$ aws s3 ls s3://daniel-aws-bucket/SRA/
+```
 
