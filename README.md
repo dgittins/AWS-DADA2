@@ -107,7 +107,7 @@ $ install.packages("seqinr")
 
 ## 5. Download DADA2-formatted reference database
 
-Sequence classification requires a reference training dataset: https://benjjneb.github.io/dada2/training.html. The command below will download the Silva 138.1 prokaryotic SSU taxonomic reference fastas  
+Sequence classification requires a reference training dataset: https://benjjneb.github.io/dada2/training.html. Update the command with the required reference dataset.  
 
 ```
 $ wget https://zenodo.org/record/4587955/files/silva_nr99_v138.1_train_set.fa.gz?download=1
@@ -115,7 +115,7 @@ $ wget https://zenodo.org/record/4587955/files/silva_nr99_v138.1_train_set.fa.gz
 
 ## 6. Install SRA Toolkit  
 
-Instructions provided here: https://github.com/ncbi/sra-tools/wiki/02.-Installing-SRA-Toolkit  
+More information: https://github.com/ncbi/sra-tools/wiki/02.-Installing-SRA-Toolkit  
 
 #### Download the SRA Toolkit for Ubuntu:
 
@@ -140,7 +140,7 @@ $ which fastq-dump
 
 ## 7. Configure SRA ToolKit  
 
-Instructions provided here: https://github.com/ncbi/sra-tools/wiki/03.-Quick-Toolkit-Configuration  
+More information: https://github.com/ncbi/sra-tools/wiki/03.-Quick-Toolkit-Configuration  
 
 ```
 $ mkdir sradownloads (/home/ubuntu/sradownloads - this will be used as the download path *could also use S3 bucket)
@@ -164,10 +164,11 @@ $ fastq-dump --stdout SRR390728 | head -n 8
 $ sudo apt install cutadapt
 $ cutadapt --version
 ```
+<br/>
 
 ## Option - Create an AMI from the EC2 Instance  
 
-To save the installed programs and settings, an AMI can be created using the [EC2 portal](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/tkv-create-ami-from-instance.html) or the [AWS CLI](https://awscli.amazonaws.com/v2/documentation/api/2.0.34/reference/ec2/create-image.html)
+To save the installed programs and settings, an AMI can be created using the [EC2 portal](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/tkv-create-ami-from-instance.html) or the [AWS CLI](https://awscli.amazonaws.com/v2/documentation/api/2.0.34/reference/ec2/create-image.html). This AMI could be used as a starting point for future sequence processing. 
 
 Example AMI:  
 
@@ -176,10 +177,10 @@ Example AMI:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Delete on termination:** Disable (EBS volume will not be deleted on termination of the EC2 instance)  
 
-*Record AMI ID for future use<br/><br/>
+*Record AMI ID for future use<br/><br/><br/>
 
 
-## 9. Download SRA files  
+## 9. Download SRA files and extract in FASTQ format 
 
 ```
 $ prefetch SRR11027625 SRR11027623 SRR11027622	
