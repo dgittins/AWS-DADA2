@@ -48,7 +48,7 @@ Then follow AWS RStudio configuration workflow: https://github.com/dgittins/AWS-
 Louis Aslett’s (awesome!) website (http://www.louisaslett.com/RStudio_AMI/) provides RStudio AMIs for different regions.  
 
 ```
-$ aws ec2 run-instances --image-id ami-0315888c660b24d7c --count 1 --instance-type t2.micro --key-name <key pair name> --security-group-ids <security group ID> --subnet-id <subnet ID> --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=DADA2}]'
+$ aws ec2 run-instances --image-id ami-0315888c660b24d7c --count 1 --instance-type t2.micro --key-name <key pair name> --security-group-ids <security group ID> --subnet-id <subnet ID> --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=DADA2}]' --block-device-mappings 'DeviceName=/dev/sda1, Ebs={VolumeSize=50}'
 ```
 <br/>
 
@@ -59,7 +59,8 @@ Parameters:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--key-name:** 'Key Pairs' in the EC2 portal  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--security-group-ids:** 'Security Groups' in the EC2 portal   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--subnet-id:** 'Subnets' in VPC portal  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--tag-specifications:** provide an instance name, e.g., 'DADA2'  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--tag-specifications:** option to provide an instance name, e.g., 'DADA2'  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--block-device-mappings:** option to increase the size of the EC2 instance storage volume (useful when processing large datasets)
 <br/>
 
 
