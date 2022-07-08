@@ -191,13 +191,13 @@ $ chmod 755 *
 
 ## 10. Remove technical sequences using cutadapt  
 
-Individual sequence files  
+Individual sequence files:  
 
 ```
 cutadapt -g ^CCTACGGGAGGCAGCAG -G ^GACTACHVGGGTATCTAATCC --discard-untrimmed -o SRR11027625_1.noprim.fastq.gz -p SRR11027625_2.noprim.fastq.gz SRR11027625_1.fastq.gz SRR11027625_2.fastq.gz
 ```
 
-Batch of multiple sequence files
+Multiple sequence files:
 
 ```
 for f in ./*_1.fastq.gz
