@@ -215,19 +215,17 @@ $ sudo chmod 777 /home/rstudio/
 $ mv *.fastq.gz /home/rstudio
 ```
 
-## 11. Access RStudio Server  
+## 11. Access RStudio Server and run the DADA2 workflow  
 
 Open a web browser and enter Public DNS(IPv4) followed by the RStudio port (8787) as the URL:
 
-&lt;Public DNS(IPv4)&gt;:8787<br/><br/>  
-
-## 12. Run the DADA2 workflow  
+&lt;Public DNS(IPv4)&gt;:8787<br/><br/>
 
 Follow the DADA2 Pipeline Tutorial (1.8): https://benjjneb.github.io/dada2/tutorial_1_8.html  
 
 NB: path <- /home/rstudio<br/><br/>  
 
-## 13. Transfer sequence and DADA2 ouput files from the EC2 instance to an S3 bucket 
+## 12. Transfer sequence and DADA2 ouput files from the EC2 instance to an S3 bucket 
 
 #### List S3 buckets
 ```
