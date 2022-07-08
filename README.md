@@ -1,6 +1,6 @@
 # AWS DADA2  
 
-Workflow for running [DADA2](https://benjjneb.github.io/dada2/index.html) on an AWS EC2 instance (includes downloading and pre-processing sequences from the [NCBIs Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra))  
+Workflow for running [DADA2](https://benjjneb.github.io/dada2/index.html) on an AWS EC2 instance (includes downloading and pre-processing sequences from the [NCBIs Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra) and transferring processed files to [Amazon S3](https://aws.amazon.com/s3/) cloud storage)  
 
 Prerequisites:
 
@@ -32,7 +32,7 @@ Example security group:
 
 A couple of options here:<br/><br/>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2.a  Create EC2 instance with an Amazon Linux AMI and configure RStudio**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2.a  Create EC2 instance with an Amazon Linux AMI and configure RStudio**
 
 Free tier eligible AMI:  
 Ubuntu Amazon Machine Image (AMI) Ubuntu Server 18.04 LTS (HVM), SSD Volume Type - ami-0c159d337b331627c (64-bit (x86)) 
