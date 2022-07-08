@@ -195,13 +195,13 @@ $ chmod 755 *
 Individual sequence files:  
 
 ```
-cutadapt -g ^CCTACGGGAGGCAGCAG -G ^GACTACHVGGGTATCTAATCC --discard-untrimmed -o SRR11027625_1.noprim.fastq.gz -p SRR11027625_2.noprim.fastq.gz SRR11027625_1.fastq.gz SRR11027625_2.fastq.gz
+$ cutadapt -g ^CCTACGGGAGGCAGCAG -G ^GACTACHVGGGTATCTAATCC --discard-untrimmed -o SRR11027625_1.noprim.fastq.gz -p SRR11027625_2.noprim.fastq.gz SRR11027625_1.fastq.gz SRR11027625_2.fastq.gz
 ```
 
 Multiple sequence files:
 
 ```
-for f in ./*_1.fastq.gz
+$ for f in ./*_1.fastq.gz
 do
 newname=$(basename $f _1.fastq.gz)
 cutadapt -g ^CCTACGGGAGGCAGCAG -G ^GACTACHVGGGTATCTAATCC --discard-untrimmed -o ${newname}_1.noprim.fastq.gz -p ${newname}_2.noprim.fastq.gz ${newname}_1.fastq.gz ${newname}_2.fastq.gz
