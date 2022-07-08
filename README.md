@@ -5,7 +5,7 @@ Workflow for running [DADA2](https://benjjneb.github.io/dada2/index.html) on an 
 Prerequisites:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. Create an [AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Set [IAM permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html) to allow Amazon EC2 and Amazon S3 access  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Set [IAM permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html) to allow Amazon EC2 access and Amazon S3 access  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c. Install and configure [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) (CLI)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d. Create and configure an [Amazon Virtual Private Cloud](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/gsg_create_vpc.html) (Amazon VPC)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e. Create an [Amazon EC2 key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)<br/><br/>
@@ -28,7 +28,7 @@ Example security group:
 
 *Record security group ID<br/><br/>
 
-## 2. Create an EC2 instance running RStudio  
+## 2. Create an EC2 instance running RStudio   
 
 A couple of options here:<br/><br/>
 
@@ -45,7 +45,7 @@ Then follow AWS RStudio configuration workflow: https://github.com/dgittins/AWS-
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2.b Create an EC2 instance with an RStudio AMI**  
 
-Louis Aslett’s (awesome!) website provides RStudio AMIs for different regions: http://www.louisaslett.com/RStudio_AMI/  
+Louis Aslett’s (awesome!) website (http://www.louisaslett.com/RStudio_AMI/) provides RStudio AMIs for different regions.  
 
 ```
 $ aws ec2 run-instances --image-id ami-0315888c660b24d7c --count 1 --instance-type t2.micro --key-name <key pair name> --security-group-ids <security group ID> --subnet-id <subnet ID> --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=DADA2}]'
@@ -55,7 +55,7 @@ $ aws ec2 run-instances --image-id ami-0315888c660b24d7c --count 1 --instance-ty
 Parameters:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--image-id:** 'AMI catalog' in the EC2 portal       
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--instance-type:** Choose an instance with suitable compute, memory and networking resources: https://aws.amazon.com/ec2/instance-types/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--instance-type:** Choose an instance with suitable resources: https://aws.amazon.com/ec2/instance-types/  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--key-name:** 'Key Pairs' in the EC2 portal  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--security-group-ids:** 'Security Groups' in the EC2 portal   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**--subnet-id:** 'Subnets' in VPC portal  
@@ -96,7 +96,9 @@ $ devtools::install_github("benjjneb/dada2", ref="v1.20")
 $ packageVersion("dada2")
 ```
 
-## 4. Install seqinr
+## 4. Install seqinr  
+
+Packages used to write sequences into a FASTA format file.
 
 ```
 $ R
@@ -105,7 +107,7 @@ $ install.packages("seqinr")
 
 ## 5. Download DADA2-formatted reference database
 
-Sequence classification requires a reference training dataset: https://benjjneb.github.io/dada2/training.html  
+Sequence classification requires a reference training dataset: https://benjjneb.github.io/dada2/training.html. The command below will download the Silva 138.1 prokaryotic SSU taxonomic reference fastas  
 
 ```
 $ wget https://zenodo.org/record/4587955/files/silva_nr99_v138.1_train_set.fa.gz?download=1
