@@ -48,7 +48,7 @@ Then follow AWS RStudio configuration workflow: https://github.com/dgittins/AWS-
 Louis Aslett’s (awesome!) website (http://www.louisaslett.com/RStudio_AMI/) provides RStudio AMIs for different regions.  
 
 ```
-$ aws ec2 run-instances --image-id ami-0315888c660b24d7c --count 1 --instance-type t2.micro --key-name <key pair name> --security-group-ids <security group ID> --subnet-id <subnet ID> --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=DADA2}]' --block-device-mappings 'DeviceName=/dev/sda1, Ebs={VolumeSize=50}'
+$ aws ec2 run-instances --image-id ami-0315888c660b24d7c --count 1 --instance-type t2.micro --key-name <key pair name> --security-group-ids <security group ID> --subnet-id <subnet ID> --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=DADA2}]' --block-device-mappings 'DeviceName=/dev/sda1, Ebs={VolumeSize=32}'
 ```
 <br/>
 
