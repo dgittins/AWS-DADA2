@@ -1,6 +1,6 @@
 # AWS DADA2  
 
-Workflow for running [DADA2](https://benjjneb.github.io/dada2/index.html) on an AWS EC2 instance (includes downloading and pre-processing sequences from the [Sequence read Archive](https://www.ncbi.nlm.nih.gov/sra))  
+Workflow for running [DADA2](https://benjjneb.github.io/dada2/index.html) on an AWS EC2 instance (includes downloading and pre-processing sequences from the [NCBIs Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra))  
 
 Prerequisites:
 
@@ -186,15 +186,15 @@ $ gzip *.fastq
 $ chmod 755 *
 ```
 
-## 10. Remove primers using cutadapt  
+## 10. Remove technical sequences using cutadapt  
 
-Individually  
+Individual sequence files  
 
 ```
 cutadapt -g ^CCTACGGGAGGCAGCAG -G ^GACTACHVGGGTATCTAATCC --discard-untrimmed -o SRR11027625_1.noprim.fastq.gz -p SRR11027625_2.noprim.fastq.gz SRR11027625_1.fastq.gz SRR11027625_2.fastq.gz
 ```
 
-Batch
+Batch of multiple sequence files
 
 ```
 for f in ./*_1.fastq.gz
@@ -221,16 +221,16 @@ Open a web browser and enter Public DNS(IPv4) followed by the RStudio port (8787
 
 Follow the DADA2 Pipeline Tutorial (1.8): https://benjjneb.github.io/dada2/tutorial_1_8.html  
 
-NB: path = /home/rstudio<br/><br/>  
+NB: path <- /home/rstudio<br/><br/>  
 
-## 13. Transfer sequence and DADA2 ouput files from EC2 to S3  
+## 13. Transfer sequence and DADA2 ouput files from the EC2 instance to an S3 bucket 
 
 #### List S3 buckets
 ```
 $ aws s3 ls
 ```
 
-#### Copy sequence files from EC2 to S3
+#### Copy new and updated sequence files from EC2 instance to S3 bucket
 
 ```
 $ aws s3 sync /home/rstudio/ s3://<aws-S3-bucket>/<subfolder>/
@@ -238,6 +238,6 @@ $ aws s3 sync /home/rstudio/ s3://<aws-S3-bucket>/<subfolder>/
 
 #### Verify files were copied
 ```
-$ aws s3 ls s3://daniel-aws-bucket/SRA/
+$ aws s3 ls s3://<aws-S3-bucket>/<subfolder>/
 ```
 
