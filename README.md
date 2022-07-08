@@ -99,7 +99,7 @@ $ packageVersion("dada2")
 
 ## 4. Install seqinr  
 
-seqinr package used to write sequences into a FASTA format file.
+[seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) package used to write sequences into a FASTA format file.
 
 ```
 $ R
