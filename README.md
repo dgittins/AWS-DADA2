@@ -35,7 +35,7 @@ A couple of options here:<br/><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2.a  Create EC2 instance with an Amazon Linux AMI and configure RStudio**
 
 Free tier eligible AMI:  
-Ubuntu Amazon Machine Image (AMI) Ubuntu Server 18.04 LTS (HVM), SSD Volume Type - ami-0c159d337b331627c (64-bit (x86)) 
+Ubuntu Amazon Machine Image (AMI) Ubuntu Server 18.04 LTS (HVM), SSD Volume Type - ami-023fc89db93991d87 (64-bit (x86)) 
 
 ```
 $ aws ec2 run-instances --image-id ami-023fc89db93991d87 --count 1 --instance-type t2.micro --key-name <key pair name> --security-group-ids <security group ID> --subnet-id <subnet ID> --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=DADA2}]' 'ResourceType=volume,Tags=[{Key=Name,Value=DADA2}]' #name the instance and volume 'DADA2'
